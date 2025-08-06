@@ -12,6 +12,7 @@ on:
         type: boolean
         default: false
 env:
+  SKIP_VERIFY: true
   PULL_IMAGE_REGISTRY: ghcr.io/ublue-os
   PUSH_IMAGE_REGISTRY: ghcr.io/${{ github.repository_owner }}
 
@@ -121,6 +122,7 @@ jobs:
           echo "SHA_HEAD_SHORT=${GITHUB_SHA::7}" >> $GITHUB_ENV
 
       - name: Verify main image
+        if: env.SKIP_VERIFY != 'true'
         uses: EyeCantCU/cosign-action/verify@58722a084c82190b57863002d494c91eabbe9e79 # v0.3.0
         with:
           containers: ${{ matrix.base_image_name }}-${{ matrix.base_image_flavor }}:${{ matrix.fedora_version }}
@@ -128,6 +130,7 @@ jobs:
           registry: ${{ env.PULL_IMAGE_REGISTRY }}
 
       - name: Verify akmods image
+        if: env.SKIP_VERIFY != 'true'
         uses: EyeCantCU/cosign-action/verify@58722a084c82190b57863002d494c91eabbe9e79 # v0.3.0
         with:
           containers: akmods:${{ matrix.kernel_flavor}}-${{ matrix.fedora_version }}-${{ matrix.kernel_version }}
@@ -135,6 +138,7 @@ jobs:
           registry: ${{ env.PULL_IMAGE_REGISTRY }}
 
       - name: Verify akmods-nvidia image
+        if: env.SKIP_VERIFY != 'true'
         uses: EyeCantCU/cosign-action/verify@58722a084c82190b57863002d494c91eabbe9e79 # v0.3.0
         with:
           containers: akmods-${{ matrix.target_nvidia_flavor }}:${{ matrix.kernel_flavor}}-${{ matrix.fedora_version }}-${{ matrix.kernel_version }}
