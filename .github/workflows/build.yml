@@ -133,6 +133,7 @@ jobs:
 
       # Prepare offline documentation
       - name: Download offline docs
+        if: false
         id: download_offline_docs
         continue-on-error: true
         env:
