@@ -1,37 +1,8 @@
-#
-#     %%%%%%====%%%%%%%%%%
-#   %%%%%%%%    %%%%%%%%%%%%%%
-#  %%%%%%%%%    %%%%%%%%%%%%%%%%
-#  %%%%%%%%%    %%%%%%%%%%%%%%%###
-#  %%%%%%%%%    %%%%%%%%%%%%%######
-#  ==                  =======######
-#  ==                  =========#####
-#  %%%%%%%%%    %%%%%%%####======#####
-#  %%%%%%%%%    %%%%%#######=====#####
-#  %%%%%%%%%    %%%#########=====#####
-#  %%%%%%%%%    %%##########=====#####
-#  %%%%%%%%%====###########=====######
-#   %%%%%%%%====#########======######
-#    %%%%%%%=====#####========######
-#     %%%%###===============#######
-#      %#######==========#########
-#        #######################
-#          ###################
-#              ###########
-#
-# Welcome to Bazzite! If you're looking to
-# build your own, we highly recommend you
-# use our custom image template. Forking
-# the main repo provides more control, but
-# is often unnecessary.
-#
-# https://github.com/ublue-os/image-template
-
 ARG BASE_IMAGE_NAME="${BASE_IMAGE_NAME:-kinoite}"
 ARG BASE_IMAGE_FLAVOR="${BASE_IMAGE_FLAVOR:-main}"
 ARG IMAGE_FLAVOR="${IMAGE_FLAVOR:-main}"
 ARG NVIDIA_FLAVOR="${NVIDIA_FLAVOR:-nvidia}"
-ARG NVIDIA_BASE="${NVIDIA_BASE:-bazzite}"
+ARG NVIDIA_BASE="${NVIDIA_BASE:-pantas}"
 ARG KERNEL_FLAVOR="${KERNEL_FLAVOR:-bazzite}"
 ARG KERNEL_VERSION="${KERNEL_VERSION:-6.12.5-204.bazzite.fc41.x86_64}"
 ARG IMAGE_BRANCH="${IMAGE_BRANCH:-main}"
@@ -53,13 +24,13 @@ COPY build_files /
 # DESKTOP BUILDS
 ################
 
-FROM ${BASE_IMAGE}:${FEDORA_VERSION} AS bazzite
+FROM ${BASE_IMAGE}:${FEDORA_VERSION} AS pantas
 
-ARG IMAGE_NAME="${IMAGE_NAME:-bazzite}"
+ARG IMAGE_NAME="${IMAGE_NAME:-pantas}"
 ARG IMAGE_VENDOR="${IMAGE_VENDOR:-ublue-os}"
 ARG IMAGE_FLAVOR="${IMAGE_FLAVOR:-main}"
 ARG NVIDIA_FLAVOR="${NVIDIA_FLAVOR:-nvidia}"
-ARG NVIDIA_BASE="${NVIDIA_BASE:-bazzite}"
+ARG NVIDIA_BASE="${NVIDIA_BASE:-pantas}"
 ARG KERNEL_FLAVOR="${KERNEL_FLAVOR:-bazzite}"
 ARG KERNEL_VERSION="${KERNEL_VERSION:-6.12.5-204.bazzite.fc41.x86_64}"
 ARG IMAGE_BRANCH="${IMAGE_BRANCH:-main}"
@@ -463,7 +434,7 @@ RUN --mount=type=cache,dst=/var/cache \
             mutter && \
         dnf5 -y install \
             nautilus-gsconnect \
-            steamdeck-backgrounds \
+            #steamdeck-backgrounds \
             steamdeck-gnome-presets \
             gnome-randr-rust \
             gnome-shell-extension-appindicator \
@@ -664,13 +635,13 @@ RUN dnf5 config-manager setopt skip_if_unavailable=1 && \
 # DECK BUILDS
 ################
 
-FROM bazzite AS bazzite-deck
+FROM pantas AS pantas-deck
 
-ARG IMAGE_NAME="${IMAGE_NAME:-bazzite-deck}"
+ARG IMAGE_NAME="${IMAGE_NAME:-pantas-deck}"
 ARG IMAGE_VENDOR="${IMAGE_VENDOR:-ublue-os}"
 ARG IMAGE_FLAVOR="${IMAGE_FLAVOR:-main}"
 ARG NVIDIA_FLAVOR="${NVIDIA_FLAVOR:-nvidia}"
-ARG NVIDIA_BASE="${NVIDIA_BASE:-bazzite}"
+ARG NVIDIA_BASE="${NVIDIA_BASE:-pantas}"
 ARG KERNEL_FLAVOR="${KERNEL_FLAVOR:-bazzite}"
 ARG KERNEL_VERSION="${KERNEL_VERSION:-6.12.5-204.bazzite.fc41.x86_64}"
 ARG IMAGE_BRANCH="${IMAGE_BRANCH:-main}"
@@ -873,13 +844,13 @@ FROM ghcr.io/ublue-os/akmods-${NVIDIA_FLAVOR}:${KERNEL_FLAVOR}-${FEDORA_VERSION}
 # NVIDIA BUILDS
 ################
 
-FROM ${NVIDIA_BASE} AS bazzite-nvidia
+FROM ${NVIDIA_BASE} AS pantas-nvidia
 
-ARG IMAGE_NAME="${IMAGE_NAME:-bazzite-nvidia}"
+ARG IMAGE_NAME="${IMAGE_NAME:-pantas-nvidia}"
 ARG IMAGE_VENDOR="${IMAGE_VENDOR:-ublue-os}"
 ARG IMAGE_FLAVOR="${IMAGE_FLAVOR:-nvidia}"
 ARG NVIDIA_FLAVOR="${NVIDIA_FLAVOR:-nvidia}"
-ARG NVIDIA_BASE="${NVIDIA_BASE:-bazzite}"
+ARG NVIDIA_BASE="${NVIDIA_BASE:-pantas}"
 ARG KERNEL_FLAVOR="${KERNEL_FLAVOR:-bazzite}"
 ARG KERNEL_VERSION="${KERNEL_VERSION:-6.12.5-204.bazzite.fc41.x86_64}"
 ARG IMAGE_BRANCH="${IMAGE_BRANCH:-main}"

@@ -1,4 +1,4 @@
-name: Build Bazzite
+name: Build Pantas
 on:
   workflow_dispatch:
     inputs:
@@ -33,7 +33,7 @@ jobs:
       fail-fast: false
       matrix:
         base_image_flavor: [main]
-        base_name: [bazzite-deck]
+        base_name: [pantas-deck]
         base_image_name: [kinoite]
         target_image_flavor: [main]
         target_nvidia_flavor: [nvidia]
@@ -50,8 +50,8 @@ jobs:
 
       - name: Define env.CONTAINER_TARGET
         run: |
-          if [[ "${{ matrix.base_name }}" == "bazzite-deck-nvidia" ]]; then
-              echo "CONTAINER_TARGET=bazzite-nvidia" >> $GITHUB_ENV
+          if [[ "${{ matrix.base_name }}" == "pantas-deck-nvidia" ]]; then
+              echo "CONTAINER_TARGET=pantas-nvidia" >> $GITHUB_ENV
           else
               echo "CONTAINER_TARGET=${{ matrix.base_name }}" >> $GITHUB_ENV
           fi
@@ -75,28 +75,28 @@ jobs:
               DESKTOP="-gnome"
           fi
 
-          if [[ "${{ matrix.base_name }}" == "bazzite-deck" ]]; then
+          if [[ "${{ matrix.base_name }}" == "pantas-deck" ]]; then
               if [[ "${{ matrix.target_image_flavor }}" == "asus" ]]; then
-                  echo "IMAGE_NAME=${{ format('{0}{1}', 'bazzite-ally', '${DESKTOP}') }}" >> $GITHUB_ENV
+                  echo "IMAGE_NAME=${{ format('{0}{1}', 'pantas-ally', '${DESKTOP}') }}" >> $GITHUB_ENV
               else
-                  echo "IMAGE_NAME=${{ format('{0}{1}', 'bazzite-deck', '${DESKTOP}') }}" >> $GITHUB_ENV
+                  echo "IMAGE_NAME=${{ format('{0}{1}', 'pantas-deck', '${DESKTOP}') }}" >> $GITHUB_ENV
               fi
-          elif [[ "${{ matrix.base_name }}" == "bazzite-deck-nvidia" ]]; then
-              echo "IMAGE_NAME=${{ format('{0}{1}', 'bazzite-deck-nvidia', '${DESKTOP}') }}" >> $GITHUB_ENV
+          elif [[ "${{ matrix.base_name }}" == "pantas-deck-nvidia" ]]; then
+              echo "IMAGE_NAME=${{ format('{0}{1}', 'pantas-deck-nvidia', '${DESKTOP}') }}" >> $GITHUB_ENV
           else
               if [[ "${{ env.IMAGE_FLAVOR }}" == "main" ]]; then
-                  echo "IMAGE_NAME=${{ format('{0}{1}', 'bazzite', '${DESKTOP}') }}" >> $GITHUB_ENV
+                  echo "IMAGE_NAME=${{ format('{0}{1}', 'pantas', '${DESKTOP}') }}" >> $GITHUB_ENV
               else
-                  echo "IMAGE_NAME=${{ format('{0}{1}-{2}', 'bazzite', '${DESKTOP}', env.IMAGE_FLAVOR) }}" >> $GITHUB_ENV
+                  echo "IMAGE_NAME=${{ format('{0}{1}-{2}', 'pantas', '${DESKTOP}', env.IMAGE_FLAVOR) }}" >> $GITHUB_ENV
               fi
           fi
 
       - name: Define env.NVIDIA_BASE
         run: |
-          if [[ "${{ matrix.base_name }}" == "bazzite-deck-nvidia" ]]; then
-              echo "NVIDIA_BASE=bazzite-deck" >> $GITHUB_ENV
+          if [[ "${{ matrix.base_name }}" == "pantas-deck-nvidia" ]]; then
+              echo "NVIDIA_BASE=pantas-deck" >> $GITHUB_ENV
           else
-              echo "NVIDIA_BASE=bazzite" >> $GITHUB_ENV
+              echo "NVIDIA_BASE=pantas" >> $GITHUB_ENV
           fi
 
       - name: Define env.SHA_HEAD_SHORT
