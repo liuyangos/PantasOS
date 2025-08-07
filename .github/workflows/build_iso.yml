@@ -158,6 +158,6 @@ jobs:
           echo "accessKeyId=${{ secrets.OSS_ACCESS_KEY_ID }}" >> .ossutilconfig
           echo "accessKeySecret=${{ secrets.OSS_ACCESS_KEY_SECRET }}" >> .ossutilconfig
           echo "region=${{ secrets.OSS_REGION }}" >> .ossutilconfig
-          ls -l ${{ steps.upload-directory.outputs.iso-upload-dir }}/
-          ./ossutil -c .ossutilconfig cp -r ${{ steps.upload-directory.outputs.iso-upload-dir }}/ oss://${{ secrets.OSS_BUCKET_PATH }}
+          timestamp="pantas$(date +"%Y%m%d%H%M")"
+          ./ossutil -c .ossutilconfig cp -r ${{ steps.upload-directory.outputs.iso-upload-dir }}/ oss://${{ secrets.OSS_BUCKET_PATH }}/$timestamp/
 
