@@ -688,6 +688,8 @@ RUN --mount=type=cache,dst=/var/cache \
         ln -sf /usr/share/wallpapers/convergence.jxl /usr/share/backgrounds/default.jxl && \
         ln -sf /usr/share/wallpapers/convergence.jxl /usr/share/backgrounds/default-dark.jxl && \
         rm -f /usr/share/backgrounds/default.xml && \
+        ls -l /etc/skel/Desktop/
+        ls -l /usr/share/wallpapers/
         rm -f /etc/skel/Desktop/Return.desktop && \
         rm -f /usr/share/wallpapers/Steam* && \
         dnf5 -y remove \
