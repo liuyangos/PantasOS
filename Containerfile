@@ -679,7 +679,7 @@ RUN --mount=type=cache,dst=/var/cache \
     if grep -q "kinoite" <<< "${BASE_IMAGE_NAME}"; then \
         dnf5 -y remove \
             steamdeck-kde-presets-desktop && \
-       dnf5 -y install \
+        dnf5 -y install \
             steamdeck-kde-presets \
     ; else \
         dnf5 -y install \
@@ -688,10 +688,6 @@ RUN --mount=type=cache,dst=/var/cache \
         ln -sf /usr/share/wallpapers/convergence.jxl /usr/share/backgrounds/default.jxl && \
         ln -sf /usr/share/wallpapers/convergence.jxl /usr/share/backgrounds/default-dark.jxl && \
         rm -f /usr/share/backgrounds/default.xml && \
-        ls -l /etc/skel/Desktop/  && \
-        ls -l /usr/share/wallpapers/  && \
-        rm -f /etc/skel/Desktop/Return.desktop && \
-        rm -f /usr/share/wallpapers/Steam* && \
         dnf5 -y remove \
             malcontent-control \
     ; fi && \
@@ -771,6 +767,13 @@ RUN --mount=type=cache,dst=/var/cache \
     --mount=type=cache,dst=/var/log \
     --mount=type=bind,from=ctx,source=/,target=/ctx \
     --mount=type=tmpfs,dst=/tmp \
+    cp /ctx/logo/pantas.png /usr/share/steamos/steamos.png  && \
+    cp /ctx/logo/pantas_logo.svgz /usr/share/plasma/look-and-feel/com.valve.vapor.desktop/contents/splash/images/bazzite_logo.svgz && \
+    cp /ctx/logo/pantas_logo.svgz /usr/share/plasma/look-and-feel/com.valve.vgui.desktop/contents/splash/images/bazzite_logo.svgz && \
+    ls -l /etc/skel/Desktop/  && \
+    ls -l /usr/share/wallpapers/  && \
+    rm -f /etc/skel/Desktop/Return.desktop && \
+    rm -f /usr/share/wallpapers/Steam* && \
     mkdir -p "/etc/xdg/autostart" && \
     #mv "/etc/skel/.config/autostart/steam.desktop" "/etc/xdg/autostart/steam.desktop" && \
     #sed -i 's@Exec=waydroid first-launch@Exec=/usr/bin/waydroid-launcher first-launch\nX-Steam-Library-Capsule=/usr/share/applications/Waydroid/capsule.png\nX-Steam-Library-Hero=/usr/share/applications/Waydroid/hero.png\nX-Steam-Library-Logo=/usr/share/applications/Waydroid/logo.png\nX-Steam-Library-StoreCapsule=/usr/share/applications/Waydroid/store-logo.png\nX-Steam-Controller-Template=Desktop@g' /usr/share/applications/Waydroid.desktop && \
