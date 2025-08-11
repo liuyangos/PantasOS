@@ -1,0 +1,12 @@
+[Unit]
+Description=Save current desktop session before logout
+DefaultDependencies=no
+Before=shutdown.target reboot.target
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/save-desktop-session
+TimeoutStartSec=0
+
+[Install]
+WantedBy=shutdown.target reboot.target
