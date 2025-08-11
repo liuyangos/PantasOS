@@ -11,6 +11,10 @@ on:
         description: 'Clear rechunk history'
         type: boolean
         default: false
+      ISO-select:
+        description: '同时生成镜像'
+        type: boolean
+        default: false
 env:
   SKIP_VERIFY: true
   PULL_IMAGE_REGISTRY: ghcr.io/ublue-os
@@ -419,3 +423,9 @@ jobs:
           signing-secret: ${{ secrets.SIGNING_SECRET }}
           tags: ${{ steps.digest.outputs.digest }}
           registry: ${{ env.PUSH_IMAGE_REGISTRY }}
+  build_iso:
+    name: Build ISO
+    needs: [push-ghcr]
+    if: github.event.inputs.ISO-select == 'true'
+    secrets: inherit
+    uses: ./.github/workflows/build_iso.yml
