@@ -10,15 +10,33 @@ HOME=$(getent passwd $USER | cut -d: -f6)
 SDDM_CONF='/etc/sddm.conf.d/steamos.conf'
 AUTOLOGIN_CONF='/etc/sddm.conf.d/zz-steamos-autologin.conf'
 DESKTOP_AUTOLOGIN='/etc/bazzite/desktop_autologin'
+FLAG_OOBE_FILE="${HOME}/.local/Host4/Grymax/oobe/firstboot"
+OOBE_START='/usr/bin/start_host4.handheld.oobe.sh'
+GET_SESSION_FILE="${HOME}/.local/share/last_session"
 
 # Avoid autologin conflict
 if [[ -f ${AUTOLOGIN_CONF} ]]; then
   rm -f ${AUTOLOGIN_CONF}
 fi
 
+if [[ -f "$GET_SESSION_FILE" ]]; then
+  SESSION_CONTENT=$(cat "$GET_SESSION_FILE")
+else
+  SESSION_CONTENT=""
+fi
+
+if [[ -f ${OOBE_START} && ! -f ${FLAG_OOBE_FILE} ]]; then
+  gamescope --expose-wayland /usr/bin/start_host4.handheld.oobe.sh
+fi
+
 # Configure autologin if Steam has been updated
 if [[ ! -f ${DESKTOP_AUTOLOGIN} ]]; then
-  sed -i 's/.*Session=.*/Session=plasma.desktop/g' ${SDDM_CONF}
+  if [[ -f "/usr/bin/start_grymax_main.sh" ]] && [[ "$SESSION_CONTENT" == "Grymax" ]]; then
+    sed -i 's/.*Session=.*/Session=grymax.desktop/g' ${SDDM_CONF}
+  else
+    sed -i 's/.*Session=.*/Session=plasma.desktop/g' ${SDDM_CONF}
+  fi
+fi
 elif [[ ${BASE_IMAGE_NAME} =~ "kinoite" ]]; then
   sed -i 's/.*Session=.*/Session=plasma.desktop/g' ${SDDM_CONF}
 elif [[ ${BASE_IMAGE_NAME} =~ "silverblue" ]]; then
