@@ -1,0 +1,10 @@
+#!/usr/bin/bash
+USER=$(id -nu 1000)
+HOME=$(getent passwd "$USER" | cut -d: -f6)
+
+SESSION_FILE="${HOME}/.local/share/last_session"
+SESSION=$XDG_CURRENT_DESKTOP
+SESSION=${SESSION:-plasma}
+
+mkdir -p "$(dirname "$SESSION_FILE")" 2>/dev/null
+echo "$SESSION" > "$SESSION_FILE" 2>/dev/null
