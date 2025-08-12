@@ -1,5 +1,5 @@
 [Desktop Entry]
-Exec=gamescope --expose-wayland /usr/bin/start_grymax_main.sh
+Exec=gamescope --expose-wayland -- /usr/bin/start_host4.handheld.main_app.sh --systemView=game_mode
 DesktopNames=Grymax
 Name=Grymax
 Comment=Grymax start
