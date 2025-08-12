@@ -10,10 +10,10 @@ HOME=$(getent passwd $USER | cut -d: -f6)
 AUTOLOGIN_CONF='/etc/sddm.conf.d/zz-steamos-autologin.conf'
 
 # Configure autologin if Steam has been updated
-if [[ -f $HOME/.local/share/Steam/ubuntu12_32/steamui.so ]]; then
+if [[ -f "/usr/bin/start_grymax_main.sh" ]]; then
   {
     echo "[Autologin]"
-    echo "Session=gamescope-session.desktop"
+    echo "Session=grymax.desktop"
   } > "$AUTOLOGIN_CONF"
 fi
 
