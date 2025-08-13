@@ -25,13 +25,13 @@ else
   SESSION_CONTENT=""
 fi
 
-if [[ -f ${OOBE_START} && ! -f ${FLAG_OOBE_FILE} ]]; then
-  gamescope --expose-wayland /usr/bin/start_host4.handheld.oobe.sh
-fi
+#if [[ -f ${OOBE_START} && ! -f ${FLAG_OOBE_FILE} ]]; then
+#  gamescope --expose-wayland /usr/bin/start_host4.handheld.oobe.sh
+#fi
 
 # Configure autologin if Steam has been updated
 if [[ ! -f ${DESKTOP_AUTOLOGIN} ]]; then
-  if [[ -f "/usr/bin/start_grymax_main.sh" ]] && [[ "$SESSION_CONTENT" == "Grymax" ]]; then
+  if [[ -f "/usr/bin/start_host4.handheld.main_app.sh" ]]; then
     sed -i 's/.*Session=.*/Session=grymax.desktop/g' ${SDDM_CONF}
   else
     sed -i 's/.*Session=.*/Session=plasma.desktop/g' ${SDDM_CONF}
