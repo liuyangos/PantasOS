@@ -10,7 +10,7 @@ HOME=$(getent passwd $USER | cut -d: -f6)
 AUTOLOGIN_CONF='/etc/sddm.conf.d/zz-steamos-autologin.conf'
 
 # Configure autologin if Steam has been updated
-if [[ -f "/usr/bin/start_host4.handheld.oobe.sh" ]]; then
+if [[ -f "/usr/bin/start_host4.handheld.main_app.sh" ]]; then
   {
     echo "[Autologin]"
     echo "Session=grymax.desktop"
